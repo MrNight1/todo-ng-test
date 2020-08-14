@@ -11,7 +11,7 @@ export class TodoItemComponent implements OnInit {
   @Input()
   detail: Todo;
 
-  constructor(private todoService: TodoService) { console.log(JSON.stringify(this.detail)); }
+  constructor(private todoService: TodoService) { }
 
   ngOnInit() {
     console.log(JSON.stringify(this.detail));

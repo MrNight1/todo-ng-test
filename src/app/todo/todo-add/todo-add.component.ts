@@ -23,6 +23,10 @@ export class TodoAddComponent implements OnInit {
     let newTodo = new Todo();
     newTodo.title = this.todoForm.get('todoName').value;
     console.log('Picaste: ', newTodo.title);
+
+    this.todoService.createTodo(newTodo).subscribe();
+    this.todoForm.reset();
+    this.todoService.refreshTodos();
   }
 
 }

@@ -10,7 +10,7 @@ import { EMPTY } from 'rxjs';
 })
 export class TodosListComponent {
 
-  todos$ = this.todoService.todos$.pipe(
+  todos$ = this.todoService.allTodos$.pipe(
     catchError(err => {
       console.log('error ', err);
       return EMPTY;
