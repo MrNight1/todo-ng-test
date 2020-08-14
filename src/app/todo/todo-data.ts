@@ -17,7 +17,7 @@ export class TodoData implements InMemoryDbService{
             {
                 id: 3,
                 title: 'Reclutar a Peter Parker',
-                complete: false
+                complete: true
             },
             {
               id: 4,
