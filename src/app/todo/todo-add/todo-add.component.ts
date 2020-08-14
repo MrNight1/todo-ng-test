@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService } from '../todo.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Todo } from '../model/todo';
 
 @Component({
   selector: 'app-todo-add',
@@ -6,10 +9,20 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class TodoAddComponent implements OnInit {
-
-  constructor() { }
+  todoForm: FormGroup;
+  
+  constructor(private fb: FormBuilder, private todoService: TodoService) { }
 
   ngOnInit() {
+    this.todoForm = this.fb.group({
+      todoName: ''
+    });
+  }
+
+  onAdd(event: KeyboardEvent) {
+    let newTodo = new Todo();
+    newTodo.title = this.todoForm.get('todoName').value;
+    console.log('Picaste: ', newTodo.title);
   }
 
 }

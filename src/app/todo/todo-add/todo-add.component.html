@@ -1,6 +1,11 @@
 <header class="header">
-    <h1>TODO</h1>
-    <input  class="new-todo" 
-            placeholder="Enter the task" 
-            autofocus>
-  </header>
+  <h1>TODO</h1>
+  <div [formGroup]="todoForm">
+    <input 
+      class="new-todo" 
+      placeholder="Enter the task" 
+      autofocus
+      formControlName="todoName"
+      (keyup.enter)="onAdd($event)">
+  </div>
+</header>
