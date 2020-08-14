@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { TodoService } from '../todo.service';
+import { catchError } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-todos-list',
   templateUrl: './todos-list.component.html',
   styles: []
 })
-export class TodosListComponent implements OnInit {
+export class TodosListComponent {
 
-  constructor() { }
+  todos$ = this.todoService.todos$.pipe(
+    catchError(err => {
+      console.log('error ', err);
+      return EMPTY;
+    })
+  );
 
-  ngOnInit() {
-  }
+  constructor(private todoService: TodoService) { }
 
 }
