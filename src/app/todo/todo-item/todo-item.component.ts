@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: './todo-item.component.html',
   styles: []
 })
+
 export class TodoItemComponent implements OnInit {
   @Input()
   detail: Todo;
@@ -54,6 +55,11 @@ export class TodoItemComponent implements OnInit {
 
   updateTodo(){
     this.todoService.updateTodo(this.detail).subscribe();
+    this.todoService.refreshTodos();
+  }
+
+  onDelete(){
+    this.todoService.deleteTodo(this.detail.id).subscribe();
     this.todoService.refreshTodos();
   }
 

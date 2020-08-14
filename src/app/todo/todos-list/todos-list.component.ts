@@ -8,9 +8,10 @@ import { EMPTY } from 'rxjs';
   templateUrl: './todos-list.component.html',
   styles: []
 })
+
 export class TodosListComponent {
 
-  todos$ = this.todoService.allTodos$.pipe(
+  todos$ = this.todoService.simpleFilter$.pipe(
     catchError(err => {
       console.log('error ', err);
       return EMPTY;
