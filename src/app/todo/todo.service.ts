@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap, concatMap } from 'rxjs/operators';
+import { tap, concatMap, map } from 'rxjs/operators';
 import { Todo } from './model/todo';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 
@@ -34,6 +34,17 @@ export class TodoService {
     return this.http.post<Todo>(this.todoUrl, todo, { headers })
       .pipe(
         tap(data => console.log('createTodo: ' + JSON.stringify(data))),
+      );
+  }
+
+  updateTodo(todo: Todo): Observable<Todo> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.todoUrl}/${todo.id}`;
+    return this.http.put<Todo>(url, todo, { headers })
+      .pipe(
+        tap(() => console.log('updateTodo: ', todo)),
+        // Return the todo on an update
+        map(() => todo),
       );
   }
 

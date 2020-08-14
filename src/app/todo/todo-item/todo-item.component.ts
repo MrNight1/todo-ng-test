@@ -13,11 +13,14 @@ export class TodoItemComponent implements OnInit {
   detail: Todo;
 
   completedForm: FormGroup;
+  editing: boolean = false;
+
+  todoForm: FormGroup;
 
   constructor(private fb: FormBuilder, private todoService: TodoService) { }
 
   ngOnInit() {
-    console.log(JSON.stringify(this.detail));
+    //console.log(JSON.stringify(this.detail));
     this.completedForm = this.fb.group({
       completedName: this.detail.complete
     });
@@ -26,9 +29,32 @@ export class TodoItemComponent implements OnInit {
       value => {
         this.detail.complete = value;
         console.log('Completed todo: ', JSON.stringify(this.detail));
-        //this.updateTodo();
+        this.updateTodo();
       }
     );
+
+    this.todoForm = this.fb.group({
+      todoName: this.detail.title
+    });
+  }
+
+  toggleEdit(){
+    this.editing = !this.editing;
+  }
+
+  onEdit(event: KeyboardEvent) {
+    this.detail.title = this.todoForm.get('todoName').value;
+    console.log('Edit: ', this.detail);
+
+    if(this.editing){
+      this.updateTodo();
+    }
+    this.toggleEdit()
+  }
+
+  updateTodo(){
+    this.todoService.updateTodo(this.detail).subscribe();
+    this.todoService.refreshTodos();
   }
 
 }
